@@ -14,27 +14,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "shr" do |shr|
        shr.vm.provision "ansible" do |ansible|
-        shr.vm.host_name = "192.168.33.31"
+        shr.vm.host_name = "shr"
         shr.vm.network "private_network", ip: "192.168.33.31"
         ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
         ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
         ansible.tags = ["setup", "cassandra", "shr", "freeshr-update-server", "patient-journal"]
         ansible.extra_vars = { setup_nrpe: "no" }
+        ansible.limit = 'all'
         ansible.vault_password_file = "~/.vaultpass.txt"
        end
   end
 
-  config.vm.define "shr2" do |shr2|
-       shr2.vm.provision "ansible" do |ansible|
-         shr2.vm.host_name = "192.168.33.32"
-         shr2.vm.network "private_network", ip: "192.168.33.32"
+  config.vm.define "identity" do |identity|
+       identity.vm.provision "ansible" do |ansible|
+         identity.vm.host_name = "identity"
+         identity.vm.network "private_network", ip: "192.168.33.32"
          ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
          ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
          ansible.tags = ["identity-server"]
          ansible.extra_vars = { setup_nrpe: "no" }
          ansible.vault_password_file = "~/.vaultpass.txt"
+         ansible.limit = 'all'
        end
   end
 
 end
+
 
