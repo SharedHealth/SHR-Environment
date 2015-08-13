@@ -25,13 +25,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
        end
   end
 
-  config.vm.define "identity" do |identity|
-       identity.vm.provision "ansible" do |ansible|
-         identity.vm.host_name = "identity"
-         identity.vm.network "private_network", ip: "192.168.33.32"
+  config.vm.define "shr2" do |shr2|
+       shr2.vm.provision "ansible" do |ansible|
+         shr2.vm.host_name = "shr2"
+         shr2.vm.network "private_network", ip: "192.168.33.32"
          ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
          ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
-         ansible.tags = ["identity-server"]
+         ansible.tags = ["setup","identity-server","datasense","tr-server", "tr-feed-server"]
          ansible.extra_vars = { setup_nrpe: "no" }
          ansible.vault_password_file = "~/.vaultpass.txt"
          ansible.limit = 'all'
