@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         mci.vm.network "private_network", ip: "192.168.33.33"
         ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
         ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
-        ansible.tags = ["setup","cassandra","healthid-server","mci-server","mci-ui"]
+        ansible.tags = ["setup","cassandra","healthid-server","mci-server"]
         ansible.extra_vars = { setup_nrpe: "no" }
         ansible.vault_password_file = "~/.vaultpass.txt"
         ansible.limit = 'all'

@@ -7,6 +7,7 @@ id_minor_version=71
 datasense_minor_version=128
 tr_server_minor_version=128
 tr_server_feed_minor_version=92
+mci_major_version=0.2
 mci_minor_version=282
 
 wget -O /tmp/shr-0.1-1.noarch.rpm https://github.com/SharedHealth/FreeSHR/releases/download/$major_version-$shr_minor_version/shr-$major_version-$shr_minor_version.noarch.rpm
@@ -20,4 +21,4 @@ wget -O /tmp/freeshr-terminology-feed-1.0-SNAPSHOT.omod https://github.com/Share
 wget -O /tmp/openmrs-atomfeed-2.3.omod https://oss.sonatype.org/service/local/repositories/releases/content/org/ict4h/openmrs/openmrs-atomfeed-omod/2.3/openmrs-atomfeed-omod-2.3.jar 
 wget -O /tmp/webservices.rest-2.9.omod https://modules.openmrs.org/modulus/api/releases/1138/download/webservices.rest-omod-2.9.omod 
 
-wget -O /tmp/mci-0.2-1.noarch.rpm https://github.com/SharedHealth/MCI-Service/releases/download/$major_version-$mci_minor_version/mci-$major_version-$mci_minor_version.noarch.rpm
+wget -O /tmp/mci-0.2-1.noarch.rpm https://github.com/SharedHealth/MCI-Service/releases/download/$mci_major_version-$mci_minor_version/mci-$mci_major_version-$mci_minor_version.noarch.rpm
