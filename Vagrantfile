@@ -16,12 +16,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shr.vm.provision "ansible" do |ansible|
         shr.vm.host_name = "shr"
         shr.vm.network "private_network", ip: "192.168.33.31"
-        ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
         ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
-        ansible.tags = ["setup", "cassandra", "shr", "freeshr-update-server", "patient-journal"]
+        ansible.tags = ["setup", "cassandra", "patient-journal"]
         ansible.extra_vars = { setup_nrpe: "no" }
         ansible.limit = 'all'
 	ansible.verbose = 'vvvv'
+        ansible.vault_password_file = "~/.vaultpass.txt"
+      end
+      shr.vm.provision "ansible" do |ansible|
+        shr.vm.host_name = "shr"
+        shr.vm.network "private_network", ip: "192.168.33.31"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
+        ansible.playbook =  "../FreeSHR-Playbooks/freeshr.yml"
+        ansible.tags = ["shr", "freeshr-update-server"]
+        ansible.extra_vars = { setup_nrpe: "no" }
+        ansible.limit = 'all'
+  ansible.verbose = 'vvvv'
         ansible.vault_password_file = "~/.vaultpass.txt"
       end
   end
@@ -30,9 +41,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shr2.vm.provision "ansible" do |ansible|
         shr2.vm.host_name = "shr2"
         shr2.vm.network "private_network", ip: "192.168.33.32"
-        ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
         ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
-        ansible.tags = ["setup","identity-server","datasense","tr-server", "tr-feed-server"]
+        ansible.tags = ["setup","identity-server","datasense"]
+        ansible.extra_vars = { setup_nrpe: "no" }
+        ansible.vault_password_file = "~/.vaultpass.txt"
+        ansible.limit = 'all'
+      end
+      shr2.vm.provision "ansible" do |ansible|
+        shr2.vm.host_name = "shr2"
+        shr2.vm.network "private_network", ip: "192.168.33.32"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
+        ansible.playbook =  "../FreeSHR-Playbooks/tr.yml"
+        ansible.tags = ["tr-server", "tr-feed-server"]
         ansible.extra_vars = { setup_nrpe: "no" }
         ansible.vault_password_file = "~/.vaultpass.txt"
         ansible.limit = 'all'
@@ -43,9 +64,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       mci.vm.provision "ansible" do |ansible|
         mci.vm.host_name = "mci"
         mci.vm.network "private_network", ip: "192.168.33.33"
-        ansible.inventory_path = "../FreeSHR-Playbooks/local-dev"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
         ansible.playbook =  "../FreeSHR-Playbooks/all.yml"
-        ansible.tags = ["setup","cassandra","healthid-server","mci-server"]
+        ansible.tags = ["setup","cassandra"]
+        ansible.extra_vars = { setup_nrpe: "no" }
+        ansible.vault_password_file = "~/.vaultpass.txt"
+        ansible.limit = 'all'
+        ansible.verbose = 'vvvv'
+      end
+      mci.vm.provision "ansible" do |ansible|
+        mci.vm.host_name = "mci"
+        mci.vm.network "private_network", ip: "192.168.33.33"
+        ansible.inventory_path = "../FreeSHR-Playbooks/inventories/local-dev"
+        ansible.playbook =  "../FreeSHR-Playbooks/mci.yml"
+        ansible.tags = ["setup","cassandra","mci-server"]
         ansible.extra_vars = { setup_nrpe: "no" }
         ansible.vault_password_file = "~/.vaultpass.txt"
         ansible.limit = 'all'
